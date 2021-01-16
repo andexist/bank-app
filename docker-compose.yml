@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  bank:
+    container_name: bank
+    build:
+      context: ./bank
+      args:
+        - APP_ENV=development
+        - COMPOSER_NO_INTERACTION=0
+    image: bank
+    ports:
+      - 3006:80
+    volumes:
+      - ./bank/src:/app
+    command: bash -c "composer update --lock --prefer-source && supervisord"
+  mysql-server:
+    image: mysql:5.7
+    container_name: bank-db
+    environment:
+      MYSQL_DATABASE: bank-db
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+    volumes:
+      - ./bank-db/data:/var/lib/mysql:rw
