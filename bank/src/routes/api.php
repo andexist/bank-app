@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\RegisterUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('login')->group(function () {
+    Route::post('/', [AuthController::class, 'getToken']);
+});
 
 Route::prefix('app')->group(function () {
     Route::get('/', [WelcomeController::class, 'sayHello']);
+});
+
+Route::prefix('register')->group(function () {
+    Route::post('/', [RegisterUserController::class, 'registerUser'])
+        ->middleware('api-auth');
 });

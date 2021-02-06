@@ -50,7 +50,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | User Providers
+    | UsersRepository Providers
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
@@ -114,4 +114,17 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+   |--------------------------------------------------------------------------
+   | API Token
+   |--------------------------------------------------------------------------
+   |
+   | Credentials to get API token
+   |
+   */
+
+    'api_token' => [
+        'username' => env('API_TOKEN_USERNAME'),
+        'password' => env('API_TOKEN_USERNAME'),
+    ],
 ];
